@@ -59,7 +59,7 @@ Campos opcionais:
 | `enabledTools` | `string[]` | Todos | Lista de permissões de ferramentas |
 | `disabledTools` | `string[]` | Todos | Lista de bloqueio de ferramentas |
 
-Não é obrigatório definir o tempo limite de conexão nem o tempo limite de uma chamada individual para cada servidor. `[mcp] startup_timeout_ms` / `[mcp] tool_timeout_ms` em `config.toml`, ou as variáveis de ambiente `KIMI_MCP_STARTUP_TIMEOUT_MS` / `KIMI_MCP_TOOL_TIMEOUT_MS`, alteram os valores padrão globais. A precedência é: campo por servidor > variável de ambiente > `config.toml` > padrão integrado. Consulte [Arquivos de configuração](../../en/configuration/config-files.md#mcp).
+Não é obrigatório definir o tempo limite de conexão nem o tempo limite de uma chamada individual para cada servidor. `[mcp] startup_timeout_ms` / `[mcp] tool_timeout_ms` em `config.toml`, ou as variáveis de ambiente `KIMI_MCP_STARTUP_TIMEOUT_MS` / `KIMI_MCP_TOOL_TIMEOUT_MS`, alteram os valores padrão globais. A precedência é: campo por servidor > variável de ambiente > `config.toml` > padrão integrado. Consulte [Arquivos de configuração](../configuration/config-files.md#mcp).
 
 Servidores HTTP e SSE permitem fornecer credenciais estáticas por `headers` ou `bearerTokenEnvVar`. Quando OAuth for necessário, execute `/mcp-config login <server-name>` para concluir a autorização pelo navegador.
 
@@ -87,7 +87,7 @@ decision = "deny"
 pattern = "mcp__filesystem__write_file"
 ```
 
-Para consultar a sintaxe completa das regras de permissão, veja [Arquivos de configuração](../../en/configuration/config-files.md#permission).
+Para consultar a sintaxe completa das regras de permissão, veja [Arquivos de configuração](../configuration/config-files.md#permission).
 
 ## Segurança
 
@@ -104,4 +104,4 @@ No modo YOLO, chamadas de ferramentas MCP são aprovadas automaticamente. Use es
 ## Próximos passos
 
 - [Plugins](../../en/customization/plugins.md): declare servidores MCP no manifesto de um plugin para empacotá-los e distribuí-los em conjunto
-- [Arquivos de configuração](../../en/configuration/config-files.md#permission): referência completa dos campos das regras de permissão
+- [Arquivos de configuração](../configuration/config-files.md#permission): referência completa dos campos das regras de permissão

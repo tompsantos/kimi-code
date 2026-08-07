@@ -41,7 +41,7 @@ Quando o agente chama uma ferramenta capaz de causar alterações, como modifica
 
 Use as setas para selecionar uma opção e pressione `Enter` para confirmar, ou pressione `1` / `2` / `3` para selecionar diretamente pelo número. `Esc`, `Ctrl-C` e `Ctrl-D` têm o mesmo efeito de rejeitar a solicitação.
 
-O painel normalmente inclui a opção **Approve for this session** ("aprovar nesta sessão"). Ao selecioná-la, chamadas do mesmo tipo são aprovadas automaticamente durante o restante da sessão. Para criar regras permanentes, adicione entradas `allow` / `deny` em [Arquivos de configuração](../../en/configuration/config-files.md#permission).
+O painel normalmente inclui a opção **Approve for this session** ("aprovar nesta sessão"). Ao selecioná-la, chamadas do mesmo tipo são aprovadas automaticamente durante o restante da sessão. Para criar regras permanentes, adicione entradas `allow` / `deny` em [Arquivos de configuração](../configuration/config-files.md#permission).
 
 ## Alternar modos
 
