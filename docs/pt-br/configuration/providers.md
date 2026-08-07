@@ -1,6 +1,6 @@
 # Provedores e modelos
 
-O Kimi Code CLI permite conectar várias plataformas de LLM simultaneamente, seja por login com um clique no serviço gerenciado do Kimi Code, conectando o Claude com uma chave de API da Anthropic ou usando serviços de inferência de terceiros por meio do protocolo compatível com OpenAI. Cada provedor corresponde a um protocolo de API específico; os modelos são declarados sobre os provedores com seu próprio nome, tamanho de contexto e recursos. Esta página explica como configurar cada tipo de provedor em `config.toml`.
+O Kimi Code CLI permite conectar várias plataformas de LLM simultaneamente, seja por login com um clique no serviço gerenciado do Kimi Code, conectando o Claude com uma chave de API da Anthropic ou usando serviços de inferência de terceiros por meio do protocolo compatível com OpenAI. Cada provedor corresponde a um protocolo de API específico; os modelos são declarados vinculados aos provedores, com seu próprio nome, tamanho de contexto e recursos. Esta página explica como configurar cada tipo de provedor em `config.toml`.
 
 ## Tipos de provedor compatíveis
 
