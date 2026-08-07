@@ -7,19 +7,19 @@
 | Indicador | Estado |
 | --- | --- |
 | Páginas físicas por locale | 26 |
-| Páginas traduzidas | 3 |
+| Páginas traduzidas | 4 |
 | Em revisão | 0 |
-| Pendentes | 23 |
+| Pendentes | 22 |
 | Divergências críticas conhecidas | 0 |
 | Divergências editoriais rastreadas | 1 |
 | Glossário inicial | pronto |
 | Plano de manutenção | pronto |
 | Proposta upstream | aberta |
 
-Progresso de tradução: **3 / 26 páginas**
+Progresso de tradução: **4 / 26 páginas**
 
 ```text
-[███░░░░░░░░░░░░░░░░░░░░░░░] 12%
+[████░░░░░░░░░░░░░░░░░░░░░░] 15%
 ```
 
 ## Estados
@@ -51,7 +51,7 @@ Progresso de tradução: **3 / 26 páginas**
 | `customization/agents.md` | ⚪ |
 | `customization/datasource.md` | ⏸ |
 | `customization/hooks.md` | ⚪ |
-| `customization/mcp.md` | ⚪ |
+| `customization/mcp.md` | ✅ |
 | `customization/plugins.md` | ⚪ |
 | `customization/skills.md` | ⚪ |
 | `customization/themes.md` | ⚪ |
@@ -101,7 +101,7 @@ A versão pt-BR usa a formulação tecnicamente coerente “binário independent
 3. ✅ publicar a página piloto de sessões
 4. ✅ traduzir `guides/getting-started.md`
 5. ✅ traduzir `guides/interaction.md`
-6. ⚪ traduzir `customization/mcp.md`
+6. ✅ traduzir `customization/mcp.md`
 7. ⚪ traduzir configuração básica
 8. ⚪ convidar revisores brasileiros
 9. ⚪ consolidar um primeiro lote para nova apresentação ao upstream
