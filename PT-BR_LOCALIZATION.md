@@ -49,6 +49,7 @@ When the English and Chinese versions differ, contributors should verify the cur
 5. Explain technical jargon briefly on first use when needed.
 6. Keep literal UI labels in their original language when the product itself is not localized, adding a Portuguese explanation when useful.
 7. Do not add product behavior that is not documented by the canonical source.
+8. While a referenced pt-BR page is still pending, link temporarily to the canonical English page instead of leaving a dead link. Replace the fallback with the local pt-BR path when that page is published.
 
 ## Proposed locale
 
@@ -78,6 +79,7 @@ label:  Português (Brasil)
 - [ ] Official product names preserved
 - [ ] Terminology consistent with the glossary
 - [ ] Relative links preserved or intentionally adjusted
+- [ ] Pending pt-BR targets use canonical English fallbacks instead of dead links
 - [ ] VitePress containers correctly closed
 - [ ] Code fences keep their language tags
 - [ ] Portuguese reads naturally, not as literal machine translation
@@ -87,6 +89,8 @@ label:  Português (Brasil)
 Product behavior, security, authentication, installation, permissions, and configuration changes take priority over editorial polish.
 
 When `docs/en/` changes, the corresponding `pt-BR` page should ideally be updated in the same development cycle. If that is not practical, the difference should be tracked openly until synchronized.
+
+Temporary English fallback links are part of the incremental rollout only. Each fallback should be replaced with the corresponding local pt-BR link as soon as the translated target page is published.
 
 The release changelog remains a separate policy decision pending upstream guidance.
 
