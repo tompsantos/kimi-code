@@ -7,18 +7,19 @@
 | Indicador | Estado |
 | --- | --- |
 | Páginas físicas por locale | 26 |
-| Páginas traduzidas | 1 |
+| Páginas traduzidas | 2 |
 | Em revisão | 0 |
-| Pendentes | 25 |
+| Pendentes | 24 |
 | Divergências críticas conhecidas | 0 |
+| Divergências editoriais rastreadas | 1 |
 | Glossário inicial | pronto |
 | Plano de manutenção | pronto |
 | Proposta upstream | aberta |
 
-Progresso de tradução: **1 / 26 páginas**
+Progresso de tradução: **2 / 26 páginas**
 
 ```text
-[█░░░░░░░░░░░░░░░░░░░░░░░░░] 4%
+[██░░░░░░░░░░░░░░░░░░░░░░░░] 8%
 ```
 
 ## Estados
@@ -35,7 +36,7 @@ Progresso de tradução: **1 / 26 páginas**
 | Página | Estado |
 | --- | --- |
 | `docs/pt-br/index.md` | ⚪ |
-| `guides/getting-started.md` | ⚪ |
+| `guides/getting-started.md` | ✅ |
 | `guides/goals.md` | ⚪ |
 | `guides/ides.md` | ⚪ |
 | `guides/interaction.md` | ⚪ |
@@ -85,12 +86,20 @@ Progresso de tradução: **1 / 26 páginas**
 
 A política do changelog ainda será definida. A recomendação atual é traduzir novas versões a partir da eventual adoção oficial do locale e tratar o histórico anterior gradualmente.
 
+## Observações de sincronização
+
+### `guides/getting-started.md`
+
+A página inglesa canônica ainda contém uma frase introdutória que descreve a CLI apenas como distribuída via npm e executada no Node.js. A própria seção de instalação da mesma página documenta duas opções atuais: binário independente pelo script oficial e pacote npm.
+
+A versão pt-BR usa a formulação tecnicamente coerente “binário independente ou pacote npm”, sem adicionar comportamento novo. A correção equivalente no inglês está proposta em `MoonshotAI/kimi-code#2664`. Esta diferença é rastreada como divergência editorial, não como divergência de comportamento.
+
 ## Prioridade atual
 
 1. ✅ publicar a estrutura comunitária
 2. ✅ registrar o glossário inicial
 3. ✅ publicar a página piloto de sessões
-4. 🔵 traduzir `guides/getting-started.md`
+4. ✅ traduzir `guides/getting-started.md`
 5. ⚪ traduzir `guides/interaction.md`
 6. ⚪ traduzir `customization/mcp.md`
 7. ⚪ traduzir configuração básica
