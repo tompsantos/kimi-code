@@ -108,7 +108,7 @@ Na primeira execução, você precisa configurar como o Kimi Code CLI acessará 
 Para sair da conta, digite `/logout`, que limpa as credenciais atuais.
 
 ::: tip Outros provedores de IA
-Para conectar Anthropic, OpenAI, Google ou outros provedores, edite diretamente `~/.kimi-code/config.toml` e configure a chave de API. Consulte [Provedores e modelos](../configuration/providers.md) para mais detalhes. Para a referência completa das opções de configuração, consulte [Arquivos de configuração](../configuration/config-files.md), [Variáveis de ambiente](../configuration/env-vars.md) e [Sobrescritas de configuração](../configuration/overrides.md).
+Para conectar Anthropic, OpenAI, Google ou outros provedores, edite diretamente `~/.kimi-code/config.toml` e configure a chave de API. Consulte [Provedores e modelos](../../en/configuration/providers.md) para mais detalhes. Para a referência completa das opções de configuração, consulte [Arquivos de configuração](../../en/configuration/config-files.md), [Variáveis de ambiente](../../en/configuration/env-vars.md) e [Sobrescritas de configuração](../../en/configuration/overrides.md).
 :::
 
 ## Sua primeira conversa
@@ -157,14 +157,14 @@ Para quem está usando o Kimi Code CLI pela primeira vez, isto é o essencial:
 | `Ctrl-S` | Inserir uma mensagem durante a saída em streaming sem esperar a resposta atual terminar |
 | `Ctrl-O` | Recolher / expandir a saída das ferramentas e os resumos de compactação |
 
-Para ver a lista completa, digite `/help` ou consulte a [Referência de comandos de barra](../reference/slash-commands.md) e os [Atalhos de teclado](../reference/keyboard.md).
+Para ver a lista completa, digite `/help` ou consulte a [Referência de comandos de barra](../../en/reference/slash-commands.md) e os [Atalhos de teclado](../../en/reference/keyboard.md).
 
 ## Onde os dados são armazenados
 
-Por padrão, o Kimi Code CLI armazena os dados locais em `~/.kimi-code/`, incluindo arquivos de configuração, registros de sessões, logs e o cache de atualização. Para usar outro local, aponte a variável de ambiente `KIMI_CODE_HOME` para um novo caminho. Para ver a estrutura completa de diretórios, consulte [Locais de armazenamento](../configuration/data-locations.md) e [Variáveis de ambiente](../configuration/env-vars.md).
+Por padrão, o Kimi Code CLI armazena os dados locais em `~/.kimi-code/`, incluindo arquivos de configuração, registros de sessões, logs e o cache de atualização. Para usar outro local, aponte a variável de ambiente `KIMI_CODE_HOME` para um novo caminho. Para ver a estrutura completa de diretórios, consulte [Locais de armazenamento](../../en/configuration/data-locations.md) e [Variáveis de ambiente](../../en/configuration/env-vars.md).
 
 ## Próximos passos
 
-- [Interação e entrada](./interaction.md): operações da caixa de entrada, fluxo de aprovação, modo Plan e modo YOLO
+- [Interação e entrada](../../en/guides/interaction.md): operações da caixa de entrada, fluxo de aprovação, modo Plan e modo YOLO
 - [Sessões e contexto](./sessions.md): retomar sessões, compactar o contexto e exportar sessões
-- [Casos de uso comuns](./use-cases.md): exemplos de prompts para tarefas frequentes
+- [Casos de uso comuns](../../en/guides/use-cases.md): exemplos de prompts para tarefas frequentes

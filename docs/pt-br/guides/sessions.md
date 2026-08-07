@@ -122,5 +122,5 @@ Os arquivos exportados podem conter código, saídas de comandos e caminhos de a
 
 ## Próximos passos
 
-- [Locais de armazenamento](../configuration/data-locations.md): estrutura completa dos diretórios usados pelos arquivos de sessão.
-- [Referência do comando `kimi`](../reference/kimi-command.md): referência completa dos parâmetros de `--continue`, `--session`, `export` e outros comandos.
+- [Locais de armazenamento](../../en/configuration/data-locations.md): estrutura completa dos diretórios usados pelos arquivos de sessão.
+- [Referência do comando `kimi`](../../en/reference/kimi-command.md): referência completa dos parâmetros de `--continue`, `--session`, `export` e outros comandos.
