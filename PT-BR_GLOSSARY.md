@@ -41,6 +41,7 @@ Este glossário registra as decisões terminológicas do projeto comunitário de
 | permission rule | regra de permissão | |
 | allowlist | lista de permissões | |
 | denylist / blocklist | lista de bloqueio | |
+| wildcard | curinga | em padrões de permissão |
 | TUI | TUI | primeira ocorrência: “interface de usuário no terminal” |
 | CLI | CLI | primeira ocorrência: “interface de linha de comando” |
 | shell | shell | explicar na primeira ocorrência quando necessário |
@@ -70,14 +71,22 @@ Este glossário registra as decisões terminológicas do projeto comunitário de
 | slash command | comando de barra | |
 | skill | Skill / habilidade | “Skill” para o mecanismo formal; “habilidade” em sentido genérico |
 | plugin | plugin | |
+| plugin manifest | manifesto do plugin | |
 | marketplace | marketplace | |
 | hook | hook | explicar brevemente na primeira ocorrência |
 | datasource | fonte de dados | exceto `Kimi Datasource` |
 | MCP client | cliente MCP | |
 | MCP server | servidor MCP | |
+| stdio | stdio / entrada e saída padrão | preservar `stdio` como nome do transporte e explicar na primeira ocorrência |
+| child process | processo filho | |
+| transport | transporte | preservar o campo `transport` em código e configuração |
 | endpoint | endpoint | |
+| request header | cabeçalho de requisição | |
+| static credentials | credenciais estáticas | |
+| browser-based authorization | autorização pelo navegador | |
 | bearer token | token Bearer | |
 | timeout | tempo limite | |
+| high-risk tool | ferramenta de alto risco | |
 | frontmatter | frontmatter | primeira ocorrência: bloco de metadados no início do arquivo |
 | config file | arquivo de configuração | |
 | environment variable | variável de ambiente | |
