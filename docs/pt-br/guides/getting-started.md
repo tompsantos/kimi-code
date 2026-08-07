@@ -94,7 +94,7 @@ Para retomar a sessão anterior, adicione `-c`:
 kimi -c
 ```
 
-Na primeira execução, você precisa configurar uma fonte de API. Na interface interativa, digite `/login` para iniciar o fluxo de login:
+Na primeira execução, você precisa configurar como o Kimi Code CLI acessará a API. Na interface interativa, digite `/login` para iniciar o fluxo de login:
 
 ```
 /login
@@ -113,7 +113,7 @@ Para conectar Anthropic, OpenAI, Google ou outros provedores, edite diretamente 
 
 ## Sua primeira conversa
 
-Depois de fazer login, descreva uma tarefa em linguagem natural. Um bom ponto de partida é deixar o Kimi Code CLI conhecer o projeto:
+Depois de fazer login, descreva uma tarefa em linguagem natural. Um bom ponto de partida é deixar o Kimi Code CLI se familiarizar com o projeto:
 
 ```
 Analise a estrutura de diretórios deste projeto e descreva brevemente para que serve cada diretório.
@@ -152,7 +152,7 @@ Para quem está usando o Kimi Code CLI pela primeira vez, isto é o essencial:
 | Atalho | Descrição |
 | --- | --- |
 | `Esc` | Interromper a saída em streaming / fechar um pop-up |
-| `Ctrl-C` | Interromper a saída; pressione duas vezes quando estiver ocioso para sair |
+| `Ctrl-C` | Interromper a saída; pressione duas vezes quando o agente estiver ocioso para sair |
 | `Shift-Tab` | Alternar o modo Plan |
 | `Ctrl-S` | Inserir uma mensagem durante a saída em streaming sem esperar a resposta atual terminar |
 | `Ctrl-O` | Recolher / expandir a saída das ferramentas e os resumos de compactação |
