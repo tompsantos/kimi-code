@@ -41,6 +41,11 @@ Este glossário registra as decisões terminológicas do projeto comunitário de
 | TUI | TUI | primeira ocorrência: “interface de usuário no terminal” |
 | CLI | CLI | primeira ocorrência: “interface de linha de comando” |
 | shell | shell | explicar na primeira ocorrência quando necessário |
+| standalone binary | binário independente | |
+| package manager | gerenciador de pacotes | |
+| API key | chave de API | preservar labels literais da interface, como `Kimi Platform API key` |
+| checksum | checksum / soma de verificação | manter o termo técnico e explicar na primeira ocorrência |
+| read-only operation | operação somente leitura | |
 | input box | caixa de entrada | |
 | conversation view | área da conversa | |
 | status bar | barra de status | |
