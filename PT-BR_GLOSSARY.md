@@ -63,6 +63,7 @@ Este glossário registra as decisões terminológicas do projeto comunitário de
 | completion menu | menu de autocompletar | preferido a “menu de conclusão” |
 | file reference | referência de arquivo | |
 | streaming output | saída em streaming | |
+| streaming mode | modo de streaming | |
 | working directory | diretório de trabalho | |
 | workspace | workspace | manter em inglês no contexto formal de diretórios de trabalho adicionais |
 | background task | tarefa em segundo plano | |
@@ -80,6 +81,23 @@ Este glossário registra as decisões terminológicas do projeto comunitário de
 | marketplace | marketplace | |
 | hook | hook | explicar brevemente na primeira ocorrência |
 | datasource | fonte de dados | exceto `Kimi Datasource` |
+| provider | provedor | |
+| provider type | tipo de provedor | |
+| managed service | serviço gerenciado | |
+| inference service | serviço de inferência | |
+| provider manager | gerenciador de provedores | |
+| model catalog | catálogo de modelos | |
+| model family | família de modelos | |
+| custom registry | registro personalizado | para `api.json` e registros equivalentes |
+| model metadata | metadados do modelo | |
+| reasoning model | modelo de raciocínio | preservar campos como `reasoning_content` |
+| reasoning content | conteúdo de raciocínio | preservar identificadores de protocolo |
+| SDK | SDK | manter a sigla |
+| proxy | proxy | |
+| gateway | gateway | |
+| host root | raiz do host | URL sem o caminho de versão acrescentado pelo SDK |
+| service account | conta de serviço | Google Cloud e contextos equivalentes |
+| credential injection | injeção de credenciais | |
 | MCP client | cliente MCP | |
 | MCP server | servidor MCP | |
 | stdio | stdio / entrada e saída padrão | preservar `stdio` como nome do transporte e explicar na primeira ocorrência |
@@ -159,6 +177,8 @@ Os termos abaixo permanecem sujeitos a validação em páginas reais antes de se
 - modo print
 - workspace
 - patch
+- gateway
+- snapshot
 
 ## Como propor uma alteração
 
