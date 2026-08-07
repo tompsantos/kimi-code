@@ -2,7 +2,7 @@
 
 ## O que é o Kimi Code CLI
 
-O Kimi Code CLI é um agente de IA que funciona no terminal e ajuda você a realizar tarefas de desenvolvimento de software e operações do dia a dia no terminal. Ele pode ler e modificar código, executar comandos de shell, pesquisar arquivos, buscar páginas da web e planejar e ajustar autonomamente os próximos passos com base no feedback recebido durante o trabalho.
+O Kimi Code CLI é um agente de IA que funciona no terminal e ajuda você a realizar tarefas de desenvolvimento de software e operações do dia a dia no terminal. Ele pode ler e modificar código, executar comandos de shell (o interpretador de comandos do terminal), pesquisar arquivos, buscar páginas da web e planejar e ajustar autonomamente os próximos passos com base no feedback recebido durante o trabalho.
 
 Ele é útil em cenários como:
 
@@ -10,7 +10,7 @@ Ele é útil em cenários como:
 - **Entender um projeto**: explorar uma base de código desconhecida e responder a perguntas sobre arquitetura e implementação
 - **Automatizar tarefas**: processar arquivos em lote, executar builds e testes e encadear vários scripts
 
-A CLI é escrita em TypeScript e está disponível tanto como binário independente quanto como pacote npm.
+A CLI (interface de linha de comando) é escrita em TypeScript e está disponível tanto como binário independente quanto como pacote npm.
 
 ## Instalação
 
@@ -34,7 +34,7 @@ curl -fsSL https://code.kimi.com/kimi-code/install.sh | bash
 irm https://code.kimi.com/kimi-code/install.ps1 | iex
 ```
 
-> No Windows, instale o [Git for Windows](https://gitforwindows.org/) antes da primeira execução. O Kimi Code CLI usa o Git Bash incluído como ambiente de shell, ou seja, o interpretador de comandos usado pelo terminal. Se o Git Bash estiver instalado em um local personalizado, defina `KIMI_SHELL_PATH` com o caminho absoluto de `bash.exe`.
+> No Windows, instale o [Git for Windows](https://gitforwindows.org/) antes da primeira execução. O Kimi Code CLI usa o Git Bash incluído como ambiente de shell. Se o Git Bash estiver instalado em um local personalizado, defina `KIMI_SHELL_PATH` com o caminho absoluto de `bash.exe`.
 
 O script baixa automaticamente a versão mais recente, verifica o checksum, ou soma de verificação, e coloca o executável `kimi` no seu `PATH`.
 
@@ -103,12 +103,12 @@ Na primeira execução, você precisa configurar uma fonte de API. Na interface 
 `/login` abre um seletor de plataforma com duas opções:
 
 - **Kimi Code (OAuth)**: fluxo por código de dispositivo. Abra o link em qualquer dispositivo, faça login e informe o código para autorizar.
-- **Kimi Platform API key**: informe uma API key de `platform.kimi.com` ou `platform.kimi.ai`.
+- **Kimi Platform API key**: informe uma chave de API de `platform.kimi.com` ou `platform.kimi.ai`.
 
-Para sair da conta, digite `/logout` e limpe as credenciais atuais.
+Para sair da conta, digite `/logout`, que limpa as credenciais atuais.
 
 ::: tip Outros provedores de IA
-Para conectar Anthropic, OpenAI, Google ou outros provedores, edite diretamente `~/.kimi-code/config.toml` e configure a API key. Consulte [Provedores e modelos](../configuration/providers.md) para mais detalhes. Para a referência completa das opções de configuração, consulte [Arquivos de configuração](../configuration/config-files.md), [Variáveis de ambiente](../configuration/env-vars.md) e [Sobrescritas de configuração](../configuration/overrides.md).
+Para conectar Anthropic, OpenAI, Google ou outros provedores, edite diretamente `~/.kimi-code/config.toml` e configure a chave de API. Consulte [Provedores e modelos](../configuration/providers.md) para mais detalhes. Para a referência completa das opções de configuração, consulte [Arquivos de configuração](../configuration/config-files.md), [Variáveis de ambiente](../configuration/env-vars.md) e [Sobrescritas de configuração](../configuration/overrides.md).
 :::
 
 ## Sua primeira conversa
