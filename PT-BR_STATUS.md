@@ -7,19 +7,19 @@
 | Indicador | Estado |
 | --- | --- |
 | Páginas físicas por locale | 26 |
-| Páginas traduzidas | 5 |
+| Páginas traduzidas | 6 |
 | Em revisão | 0 |
-| Pendentes | 21 |
+| Pendentes | 20 |
 | Divergências críticas conhecidas | 0 |
 | Divergências editoriais rastreadas | 1 |
 | Glossário inicial | pronto |
 | Plano de manutenção | pronto |
 | Proposta upstream | aberta |
 
-Progresso de tradução: **5 / 26 páginas**
+Progresso de tradução: **6 / 26 páginas**
 
 ```text
-[█████░░░░░░░░░░░░░░░░░░░░░] 19%
+[██████░░░░░░░░░░░░░░░░░░░░] 23%
 ```
 
 ## Estados
@@ -66,7 +66,7 @@ Progresso de tradução: **5 / 26 páginas**
 | `configuration/data-locations.md` | ⚪ |
 | `configuration/env-vars.md` | ⚪ |
 | `configuration/overrides.md` | ⚪ |
-| `configuration/providers.md` | ⚪ |
+| `configuration/providers.md` | ✅ |
 
 ## Referência
 
@@ -103,10 +103,11 @@ A versão pt-BR usa a formulação tecnicamente coerente “binário independent
 5. ✅ traduzir `guides/interaction.md`
 6. ✅ traduzir `customization/mcp.md`
 7. ✅ traduzir `configuration/config-files.md`
-8. ⚪ traduzir `configuration/providers.md`
+8. ✅ traduzir `configuration/providers.md`
 9. ⚪ traduzir `configuration/env-vars.md`
-10. ⚪ convidar revisores brasileiros
-11. ⚪ consolidar um primeiro lote para nova apresentação ao upstream
+10. ⚪ traduzir `configuration/overrides.md`
+11. ⚪ convidar revisores brasileiros
+12. ⚪ consolidar um primeiro lote para nova apresentação ao upstream
 
 ## Upstream
 
