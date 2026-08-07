@@ -42,9 +42,12 @@ Este glossário registra as decisões terminológicas do projeto comunitário de
 | allowlist | lista de permissões | |
 | denylist / blocklist | lista de bloqueio | |
 | wildcard | curinga | em padrões de permissão |
+| glob pattern | padrão glob | preservar “glob” e explicar pelo contexto quando necessário |
 | TUI | TUI | primeira ocorrência: “interface de usuário no terminal” |
 | CLI | CLI | primeira ocorrência: “interface de linha de comando” |
 | shell | shell | explicar na primeira ocorrência quando necessário |
+| runtime | runtime | manter em inglês quando se referir ao ambiente/comportamento em execução |
+| print mode | modo print | usado para `kimi -p` |
 | standalone binary | binário independente | |
 | package manager | gerenciador de pacotes | |
 | API key | chave de API | preservar labels literais da interface, como `Kimi Platform API key` |
@@ -53,6 +56,7 @@ Este glossário registra as decisões terminológicas do projeto comunitário de
 | input box | caixa de entrada | |
 | conversation view | área da conversa | |
 | status bar | barra de status | |
+| status line | linha de status | |
 | clipboard | área de transferência | |
 | placeholder | marcador temporário | em campos de entrada e mídia colada |
 | multimodal capability | recurso multimodal | |
@@ -60,6 +64,7 @@ Este glossário registra as decisões terminológicas do projeto comunitário de
 | file reference | referência de arquivo | |
 | streaming output | saída em streaming | |
 | working directory | diretório de trabalho | |
+| workspace | workspace | manter em inglês no contexto formal de diretórios de trabalho adicionais |
 | background task | tarefa em segundo plano | |
 | sensitive action | ação sensível | segurança e permissões |
 | external editor | editor externo | |
@@ -87,6 +92,16 @@ Este glossário registra as decisões terminológicas do projeto comunitário de
 | bearer token | token Bearer | |
 | timeout | tempo limite | |
 | high-risk tool | ferramenta de alto risco | |
+| snake_case | snake_case | preservar como nome da convenção de identificadores |
+| scalar | valor escalar | em TOML/configuração |
+| nested table | tabela aninhada | em TOML/configuração |
+| model alias | alias de modelo | |
+| model patch | patch de modelo | preservar “patch” como termo técnico |
+| transient failure | falha transitória | |
+| rate limit | limite de taxa | HTTP/API |
+| quota | cota | |
+| telemetry | telemetria | |
+| project-local configuration | configuração local do projeto | |
 | frontmatter | frontmatter | primeira ocorrência: bloco de metadados no início do arquivo |
 | config file | arquivo de configuração | |
 | environment variable | variável de ambiente | |
@@ -140,6 +155,10 @@ Os termos abaixo permanecem sujeitos a validação em páginas reais antes de se
 - modo Auto
 - locais de armazenamento
 - sobrescritas de configuração
+- runtime
+- modo print
+- workspace
+- patch
 
 ## Como propor uma alteração
 
