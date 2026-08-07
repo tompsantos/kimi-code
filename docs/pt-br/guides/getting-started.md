@@ -165,6 +165,6 @@ Por padrão, o Kimi Code CLI armazena os dados locais em `~/.kimi-code/`, inclui
 
 ## Próximos passos
 
-- [Interação e entrada](../../en/guides/interaction.md): operações da caixa de entrada, fluxo de aprovação, modo Plan e modo YOLO
+- [Interação e entrada](./interaction.md): operações da caixa de entrada, fluxo de aprovação, modo Plan e modo YOLO
 - [Sessões e contexto](./sessions.md): retomar sessões, compactar o contexto e exportar sessões
 - [Casos de uso comuns](../../en/guides/use-cases.md): exemplos de prompts para tarefas frequentes

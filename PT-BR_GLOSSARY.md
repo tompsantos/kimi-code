@@ -30,11 +30,14 @@ Este glossário registra as decisões terminológicas do projeto comunitário de
 | context window | janela de contexto | |
 | context compression | compactação do contexto | preferido a “compressão” |
 | token | token | |
+| turn | turno | uma interação em andamento entre usuário, agente e ferramentas |
 | fork a session | criar um fork da sessão | preservar “fork” |
 | tool | ferramenta | |
 | tool call | chamada de ferramenta | |
 | built-in tool | ferramenta integrada | |
+| tool approval | aprovação de ferramenta | |
 | approval request | solicitação de aprovação | |
+| approval panel | painel de aprovação | |
 | permission rule | regra de permissão | |
 | allowlist | lista de permissões | |
 | denylist / blocklist | lista de bloqueio | |
@@ -49,9 +52,16 @@ Este glossário registra as decisões terminológicas do projeto comunitário de
 | input box | caixa de entrada | |
 | conversation view | área da conversa | |
 | status bar | barra de status | |
+| clipboard | área de transferência | |
+| placeholder | marcador temporário | em campos de entrada e mídia colada |
+| multimodal capability | recurso multimodal | |
+| completion menu | menu de autocompletar | preferido a “menu de conclusão” |
+| file reference | referência de arquivo | |
 | streaming output | saída em streaming | |
 | working directory | diretório de trabalho | |
 | background task | tarefa em segundo plano | |
+| sensitive action | ação sensível | segurança e permissões |
+| external editor | editor externo | |
 | Plan mode | modo Plan | nome do modo preservado |
 | YOLO mode | modo YOLO | nome do modo preservado |
 | Auto mode | modo Auto | nome do modo preservado |

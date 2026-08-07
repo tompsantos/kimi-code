@@ -7,19 +7,19 @@
 | Indicador | Estado |
 | --- | --- |
 | Páginas físicas por locale | 26 |
-| Páginas traduzidas | 2 |
+| Páginas traduzidas | 3 |
 | Em revisão | 0 |
-| Pendentes | 24 |
+| Pendentes | 23 |
 | Divergências críticas conhecidas | 0 |
 | Divergências editoriais rastreadas | 1 |
 | Glossário inicial | pronto |
 | Plano de manutenção | pronto |
 | Proposta upstream | aberta |
 
-Progresso de tradução: **2 / 26 páginas**
+Progresso de tradução: **3 / 26 páginas**
 
 ```text
-[██░░░░░░░░░░░░░░░░░░░░░░░░] 8%
+[███░░░░░░░░░░░░░░░░░░░░░░░] 12%
 ```
 
 ## Estados
@@ -39,7 +39,7 @@ Progresso de tradução: **2 / 26 páginas**
 | `guides/getting-started.md` | ✅ |
 | `guides/goals.md` | ⚪ |
 | `guides/ides.md` | ⚪ |
-| `guides/interaction.md` | ⚪ |
+| `guides/interaction.md` | ✅ |
 | `guides/migration.md` | ⚪ |
 | `guides/sessions.md` | ✅ |
 | `guides/use-cases.md` | ⚪ |
@@ -100,7 +100,7 @@ A versão pt-BR usa a formulação tecnicamente coerente “binário independent
 2. ✅ registrar o glossário inicial
 3. ✅ publicar a página piloto de sessões
 4. ✅ traduzir `guides/getting-started.md`
-5. ⚪ traduzir `guides/interaction.md`
+5. ✅ traduzir `guides/interaction.md`
 6. ⚪ traduzir `customization/mcp.md`
 7. ⚪ traduzir configuração básica
 8. ⚪ convidar revisores brasileiros
