@@ -47,10 +47,13 @@ Este glossário registra as decisões terminológicas do projeto comunitário de
 | CLI | CLI | primeira ocorrência: “interface de linha de comando” |
 | shell | shell | explicar na primeira ocorrência quando necessário |
 | runtime | runtime | manter em inglês quando se referir ao ambiente/comportamento em execução |
+| runtime switch | chave de runtime | para variáveis que alteram comportamento durante a execução |
 | print mode | modo print | usado para `kimi -p` |
 | standalone binary | binário independente | |
 | package manager | gerenciador de pacotes | |
 | API key | chave de API | preservar labels literais da interface, como `Kimi Platform API key` |
+| credential variable | variável de credencial | |
+| secret management | gerenciamento de segredos | |
 | checksum | checksum / soma de verificação | manter o termo técnico e explicar na primeira ocorrência |
 | read-only operation | operação somente leitura | |
 | input box | caixa de entrada | |
@@ -93,7 +96,11 @@ Este glossário registra as decisões terminológicas do projeto comunitário de
 | reasoning model | modelo de raciocínio | preservar campos como `reasoning_content` |
 | reasoning content | conteúdo de raciocínio | preservar identificadores de protocolo |
 | SDK | SDK | manter a sigla |
+| Application Default Credentials (ADC) | credenciais padrão do aplicativo (ADC) | Google Cloud; preservar a sigla ADC |
 | proxy | proxy | |
+| HTTP proxy | proxy HTTP | |
+| SOCKS proxy | proxy SOCKS | |
+| loopback host | host de loopback | `localhost`, `127.0.0.1`, `::1` |
 | gateway | gateway | |
 | host root | raiz do host | URL sem o caminho de versão acrescentado pelo SDK |
 | service account | conta de serviço | Google Cloud e contextos equivalentes |
@@ -119,6 +126,13 @@ Este glossário registra as decisões terminológicas do projeto comunitário de
 | rate limit | limite de taxa | HTTP/API |
 | quota | cota | |
 | telemetry | telemetria | |
+| truthy / falsy | valor verdadeiro / falso | quando a documentação descreve interpretação booleana de strings |
+| log rotation | rotação de logs | |
+| staging | staging | manter em inglês em ambientes de pré-produção |
+| shim | shim | manter em inglês; wrapper intermediário criado por ferramentas/gerenciadores |
+| process environment | ambiente do processo | preservar `process.env` como identificador |
+| system environment variable | variável de ambiente do sistema | |
+| nucleus sampling | nucleus sampling | preservar o nome técnico; campo `top_p` permanece literal |
 | project-local configuration | configuração local do projeto | |
 | frontmatter | frontmatter | primeira ocorrência: bloco de metadados no início do arquivo |
 | config file | arquivo de configuração | |
@@ -179,6 +193,9 @@ Os termos abaixo permanecem sujeitos a validação em páginas reais antes de se
 - patch
 - gateway
 - snapshot
+- staging
+- shim
+- nucleus sampling
 
 ## Como propor uma alteração
 
