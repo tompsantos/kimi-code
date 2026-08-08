@@ -108,7 +108,7 @@ Na primeira execução, você precisa configurar como o Kimi Code CLI acessará 
 Para sair da conta, digite `/logout`, que limpa as credenciais atuais.
 
 ::: tip Outros provedores de IA
-Para conectar Anthropic, OpenAI, Google ou outros provedores, edite diretamente `~/.kimi-code/config.toml` e configure a chave de API. Consulte [Provedores e modelos](../configuration/providers.md) para mais detalhes. Para a referência completa das opções de configuração, consulte [Arquivos de configuração](../configuration/config-files.md), [Variáveis de ambiente](../../en/configuration/env-vars.md) e [Sobrescritas de configuração](../../en/configuration/overrides.md).
+Para conectar Anthropic, OpenAI, Google ou outros provedores, edite diretamente `~/.kimi-code/config.toml` e configure a chave de API. Consulte [Provedores e modelos](../configuration/providers.md) para mais detalhes. Para a referência completa das opções de configuração, consulte [Arquivos de configuração](../configuration/config-files.md), [Variáveis de ambiente](../configuration/env-vars.md) e [Sobrescritas de configuração](../../en/configuration/overrides.md).
 :::
 
 ## Sua primeira conversa
@@ -161,7 +161,7 @@ Para ver a lista completa, digite `/help` ou consulte a [Referência de comandos
 
 ## Onde os dados são armazenados
 
-Por padrão, o Kimi Code CLI armazena os dados locais em `~/.kimi-code/`, incluindo arquivos de configuração, registros de sessões, logs e o cache de atualização. Para usar outro local, aponte a variável de ambiente `KIMI_CODE_HOME` para um novo caminho. Para ver a estrutura completa de diretórios, consulte [Locais de armazenamento](../../en/configuration/data-locations.md) e [Variáveis de ambiente](../../en/configuration/env-vars.md).
+Por padrão, o Kimi Code CLI armazena os dados locais em `~/.kimi-code/`, incluindo arquivos de configuração, registros de sessões, logs e o cache de atualização. Para usar outro local, aponte a variável de ambiente `KIMI_CODE_HOME` para um novo caminho. Para ver a estrutura completa de diretórios, consulte [Locais de armazenamento](../../en/configuration/data-locations.md) e [Variáveis de ambiente](../configuration/env-vars.md).
 
 ## Próximos passos
 

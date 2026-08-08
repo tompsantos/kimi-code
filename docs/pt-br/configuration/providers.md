@@ -160,4 +160,4 @@ O serviço gerenciado do Kimi Code usa OAuth em vez de chaves de API estáticas.
 
 - [Arquivos de configuração](./config-files.md): referência completa dos campos das tabelas `providers` e `models`
 - [Sobrescritas de configuração](../../en/configuration/overrides.md): regras de prioridade para resolução de credenciais dos provedores
-- [Variáveis de ambiente](../../en/configuration/env-vars.md): nomes das chaves de credencial para cada tipo de provedor
+- [Variáveis de ambiente](./env-vars.md): nomes das chaves de credencial para cada tipo de provedor
