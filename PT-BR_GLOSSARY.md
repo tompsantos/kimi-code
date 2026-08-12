@@ -45,9 +45,17 @@ Este glossário registra as decisões terminológicas do projeto comunitário de
 | glob pattern | padrão glob | preservar “glob” e explicar pelo contexto quando necessário |
 | TUI | TUI | primeira ocorrência: “interface de usuário no terminal” |
 | CLI | CLI | primeira ocorrência: “interface de linha de comando” |
+| command-line option | opção de linha de comando | |
+| mutual exclusion | exclusão mútua | para combinações de flags/opções que não podem coexistir |
+| non-interactive mode | modo não interativo | |
 | shell | shell | explicar na primeira ocorrência quando necessário |
 | runtime | runtime | manter em inglês quando se referir ao ambiente/comportamento em execução |
+| runtime parameter | parâmetro de runtime | |
+| ordinary runtime parameter | parâmetro comum de runtime | distingue parâmetros gerais de exceções explícitas |
 | runtime switch | chave de runtime | para variáveis que alteram comportamento durante a execução |
+| resolution | resolução | processo de determinar o valor efetivo de configuração/credencial |
+| one-off change | alteração pontual | válida apenas para a execução/sessão indicada |
+| fallback | fallback | manter em inglês quando descrever mecanismo de valor alternativo |
 | print mode | modo print | usado para `kimi -p` |
 | standalone binary | binário independente | |
 | package manager | gerenciador de pacotes | |
@@ -134,6 +142,9 @@ Este glossário registra as decisões terminológicas do projeto comunitário de
 | system environment variable | variável de ambiente do sistema | |
 | nucleus sampling | nucleus sampling | preservar o nome técnico; campo `top_p` permanece literal |
 | project-local configuration | configuração local do projeto | |
+| user-level config file | arquivo de configuração no nível do usuário | |
+| project-level config file | arquivo de configuração no nível do projeto | |
+| isolated test environment | ambiente de teste isolado | |
 | frontmatter | frontmatter | primeira ocorrência: bloco de metadados no início do arquivo |
 | config file | arquivo de configuração | |
 | environment variable | variável de ambiente | |
@@ -196,6 +207,7 @@ Os termos abaixo permanecem sujeitos a validação em páginas reais antes de se
 - staging
 - shim
 - nucleus sampling
+- fallback
 
 ## Como propor uma alteração
 
