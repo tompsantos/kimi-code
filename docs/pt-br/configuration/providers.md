@@ -17,7 +17,7 @@ O campo `type` da tabela `providers` determina qual implementação de protocolo
 
 Por padrão, todos os provedores se comunicam com os modelos em modo de streaming. Recursos como Thinking, visão e uso de ferramentas são identificados automaticamente pelo prefixo do nome do modelo; normalmente não é necessário declará-los manualmente.
 
-**Prioridade das credenciais**: campo direto `api_key` > chave na subtabela `[providers.<name>.env]` > se ambos estiverem ausentes, a inicialização falha com um erro. A CLI não usa variáveis de ambiente do shell como fallback automático para credenciais. Consulte [Sobrescritas de configuração: credenciais de provedores](../../en/configuration/overrides.md#provider-credentials).
+**Prioridade das credenciais**: campo direto `api_key` > chave na subtabela `[providers.<name>.env]` > se ambos estiverem ausentes, a inicialização falha com um erro. A CLI não usa variáveis de ambiente do shell como fallback automático para credenciais. Consulte [Sobrescritas de configuração: credenciais de provedores](./overrides.md#credenciais-de-provedores).
 
 ## `/provider` — gerenciamento interativo de provedores
 
@@ -159,5 +159,5 @@ O serviço gerenciado do Kimi Code usa OAuth em vez de chaves de API estáticas.
 ## Próximos passos
 
 - [Arquivos de configuração](./config-files.md): referência completa dos campos das tabelas `providers` e `models`
-- [Sobrescritas de configuração](../../en/configuration/overrides.md): regras de prioridade para resolução de credenciais dos provedores
+- [Sobrescritas de configuração](./overrides.md): regras de prioridade para resolução de credenciais dos provedores
 - [Variáveis de ambiente](./env-vars.md): nomes das chaves de credencial para cada tipo de provedor
