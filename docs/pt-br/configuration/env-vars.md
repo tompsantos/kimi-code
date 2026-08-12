@@ -7,7 +7,7 @@ Variáveis de credencial como `KIMI_API_KEY`, `ANTHROPIC_API_KEY` e `OPENAI_API_
 
 A única exceção é a família `KIMI_MODEL_*`, que funciona como um canal explícito que *de fato* lê credenciais do shell. Consulte a seção **Definir um modelo por variáveis de ambiente (`KIMI_MODEL_*`)** abaixo.
 
-Para entender o contexto, consulte [Sobrescritas de configuração: credenciais de provedores](../../en/configuration/overrides.md#provider-credentials).
+Para entender o contexto, consulte [Sobrescritas de configuração: credenciais de provedores](./overrides.md#credenciais-de-provedores).
 :::
 
 ## Caminhos principais
@@ -199,6 +199,6 @@ Servidores MCP stdio executados como processos filhos Node respeitam automaticam
 
 ## Próximos passos
 
-- [Sobrescritas de configuração](../../en/configuration/overrides.md): como variáveis de ambiente, opções da CLI e o arquivo de configuração interagem por prioridade
+- [Sobrescritas de configuração](./overrides.md): como variáveis de ambiente, opções da CLI e o arquivo de configuração interagem por prioridade
 - [Locais de armazenamento](../../en/configuration/data-locations.md): estrutura de diretórios afetada por `KIMI_CODE_HOME`
 - [Provedores e modelos](./providers.md): exemplos completos de conexão para cada tipo de provedor
