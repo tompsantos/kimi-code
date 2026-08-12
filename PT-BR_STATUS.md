@@ -14,6 +14,7 @@
 | Divergências editoriais rastreadas | 1 |
 | Glossário inicial | pronto |
 | Plano de manutenção | pronto |
+| Último upstream auditado | `619564d` (2026-08-11) |
 | Proposta upstream | aberta |
 
 Progresso de tradução: **8 / 26 páginas**
@@ -87,6 +88,21 @@ Progresso de tradução: **8 / 26 páginas**
 A política do changelog ainda será definida. A recomendação atual é traduzir novas versões a partir da eventual adoção oficial do locale e tratar o histórico anterior gradualmente.
 
 ## Observações de sincronização
+
+### Auditoria upstream de 2026-08-11
+
+O fork foi sincronizado com `MoonshotAI/kimi-code:main` até o commit `619564d`. A auditoria dos 35 commits incorporados encontrou mudanças em quatro páginas da documentação inglesa:
+
+- `configuration/config-files.md`
+- `customization/mcp.md`
+- `customization/plugins.md`
+- `release-notes/changelog.md`
+
+Entre elas, apenas `configuration/config-files.md` e `customization/mcp.md` já possuem versões pt-BR. As duas traduções foram comparadas com o estado upstream e **já continham as mudanças relevantes**, porque cada página havia sido traduzida a partir da fonte inglesa atual no momento da respectiva entrega. Nenhuma correção de conteúdo foi necessária nesta auditoria.
+
+`customization/plugins.md` continua pendente de tradução. `release-notes/changelog.md` permanece aguardando a definição da política de localização do changelog.
+
+Resultado da auditoria: **0 divergências críticas novas e 0 páginas traduzidas aguardando sincronização**.
 
 ### `guides/getting-started.md`
 
