@@ -1,18 +1,19 @@
 import { randomUUID } from 'node:crypto';
-
-import { LifecycleScope, ScopeActivation, registerScopedService } from '#/_base/di/scope';
+import { LifecycleScope } from '#/app/scopes';
+import { ScopeActivation, registerScopedService } from '#/_base/di/scope';
 import { IAgentContextMemoryService } from '#/agent/contextMemory/contextMemory';
 import { IAgentTokenCountingService } from '#/agent/tokenCounting/tokenCounting';
 import { IAgentFullCompactionService } from '#/agent/fullCompaction/fullCompaction';
 import { IEventBus } from '#/app/event/eventBus';
 import { IEventService } from '#/app/event/event';
-import { ErrorCodes, Error2 } from '#/errors';
+import { ErrorCodes, Error2, isError2 } from '#/errors';
 import { IAgentPermissionModeService } from '#/agent/permissionMode/permissionMode';
 import { IAgentScopeContext } from '#/agent/scopeContext/scopeContext';
 import {
   IAgentLifecycleService,
   MAIN_AGENT_ID,
 } from '#/session/agentLifecycle/agentLifecycle';
+import { IAgentCommandService } from '#/agent/command/agentCommand';
 import { expandCommandArguments } from '#/app/plugin/commands';
 import { IPluginService } from '#/app/plugin/plugin';
 import { ProfileError } from '#/agent/profile/profile';
@@ -32,6 +33,7 @@ import type {
   EmptyPayload,
   PromptLaunchResult,
   PromptPayload,
+  RunCommandPayload,
   SetPermissionPayload,
   SteerPayload,
   UndoHistoryPayload,
@@ -82,6 +84,7 @@ export class AgentRPCService implements IAgentRPCService {
     @ISessionContext private readonly sessionContext: ISessionContext,
     @IAgentScopeContext private readonly scopeContext: IAgentScopeContext,
     @IAgentLifecycleService private readonly agentLifecycle: IAgentLifecycleService,
+    @IAgentCommandService private readonly commands: IAgentCommandService,
   ) { }
 
   async prompt(payload: PromptPayload): Promise<PromptLaunchResult | undefined> {
@@ -109,14 +112,37 @@ export class AgentRPCService implements IAgentRPCService {
 
   async steer(payload: SteerPayload): Promise<PromptLaunchResult | undefined> {
     this.telemetry.track2('input_steer', { parts: payload.input.length });
+    if (this.scopeContext.agentId === MAIN_AGENT_ID) {
+      // A steer is user input like a prompt — and can even launch the
+      // session's first turn (e.g. goal mode) — so keep title/lastPrompt in
+      // sync the same way, matching v1.
+      await this.updatePromptMetadata(promptMetadataTextFromPayload(payload));
+    }
     const queued = await this.promptService.enqueue({ message: {
       role: 'user',
       content: [...payload.input],
       toolCalls: [],
     } });
-    const [steered] = await this.promptService.steer([queued.id]);
-    const turn = await steered?.launched;
-    return turn === undefined ? undefined : { turn_id: turn.id };
+    if (queued.state !== 'pending') {
+      // No active prompt at enqueue time, so the enqueue itself already
+      // launched this input as its own turn (idle session, or a goal-turn
+      // boundary where the previous turn just ended) — v1's
+      // steer-degrades-to-launch end state. Return that turn instead of
+      // rejecting on a steer-by-id that can never find the record pending.
+      const turn = await queued.launched;
+      return turn === undefined ? undefined : { turn_id: turn.id };
+    }
+    try {
+      const [steered] = await this.promptService.steer([queued.id]);
+      const turn = await steered?.launched;
+      return turn === undefined ? undefined : { turn_id: turn.id };
+    } catch (error) {
+      // Pending but nothing active to steer into (a manual compaction holds
+      // the context): the message stays queued and launches once compaction
+      // finishes, so report it as queued rather than failing the steer.
+      if (isError2(error) && error.code === ErrorCodes.PROMPT_NOT_FOUND) return undefined;
+      throw error;
+    }
   }
 
   cancel({ turnId }: CancelPayload): void {
@@ -226,6 +252,14 @@ export class AgentRPCService implements IAgentRPCService {
       // `context.tokenCount` semantics.
       tokenCount: this.tokenCounting.statusSize(),
     };
+  }
+
+  listCommands(_payload: EmptyPayload) {
+    return this.commands.list();
+  }
+
+  async runCommand(payload: RunCommandPayload): Promise<void> {
+    return this.commands.run(payload.name, payload.args);
   }
 
   getTools(_payload: EmptyPayload) {

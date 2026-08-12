@@ -5,9 +5,9 @@ import { tmpdir } from 'node:os';
 import { isAbsolute, join, resolve } from 'node:path';
 
 import { Disposable } from '#/_base/di/lifecycle';
+import { LifecycleScope } from '#/app/scopes';
 import {
   type IAgentScopeHandle,
-  LifecycleScope,
   ScopeActivation,
   _clearScopedRegistryForTests,
   registerScopedService,
@@ -28,6 +28,7 @@ import {
   MAIN_AGENT_ID,
 } from '#/session/agentLifecycle/agentLifecycle';
 import type { McpConnectionManager } from '#/mcpCore/connection-manager';
+import type { McpServerConfig } from '#/mcpCore/config-schema';
 import { IWorkspaceSkillCatalog } from '#/workspace/workspaceSkillCatalog/workspaceSkillCatalog';
 import { IWorkspaceAgentProfileLoader } from '#/workspace/workspaceAgentProfileLoader/workspaceAgentProfileLoader';
 import { IExtraAgentProfileLoader } from '#/workspace/workspaceAgentProfileLoader/extraAgentProfileLoader';
@@ -37,8 +38,8 @@ import { IPluginAgentProfileLoader } from '#/workspace/workspaceAgentProfileLoad
 import { IWorkspaceDirs } from '#/workspace/workspaceDirs/workspaceDirs';
 import { WorkspaceDirsService } from '#/workspace/workspaceDirs/workspaceDirsService';
 import { IWorkspaceInstructionsService } from '#/workspace/workspaceInstructions/workspaceInstructions';
-import { IWorkspaceMcpService, type ISessionMcpOverlay } from '#/workspace/workspaceMcp/workspaceMcp';
-import { IAgentPlanService } from '#/agent/plan/plan';
+import { IWorkspaceMcpService } from '#/workspace/workspaceMcp/workspaceMcp';
+import { IAgentPlanService } from '#/features/plan/plan';
 import { ISessionCronService } from '#/session/cron/sessionCronService';
 import { ISessionSecondaryModelWarningService } from '#/session/subagent/secondaryModelWarning';
 import { ICronTaskPersistence } from '#/app/cron/cronTaskPersistence';
@@ -56,6 +57,7 @@ import {
   ISessionLifecycleHooks,
   type SessionLifecycleHookSlots,
 } from '#/session/sessionLifecycleHooks/sessionLifecycleHooks';
+import { ISessionIndexMirror } from '#/app/sessionIndex/sessionIndex';
 import { ISessionMetadata } from '#/session/sessionMetadata/sessionMetadata';
 import { ISessionToolPolicy } from '#/session/sessionToolPolicy/sessionToolPolicy';
 import { ISessionProcessRunner } from '#/session/process/processRunner';
@@ -74,6 +76,7 @@ import { WorkspaceStateService } from '#/workspace/state/workspaceStateService';
 import { IWorkspaceService, type Workspace } from '#/app/workspace/workspace';
 import { encodeWorkDirKey } from '#/_base/utils/workdir-slug';
 import { ISessionContext } from '#/session/sessionContext/sessionContext';
+import { ISessionEphemeralMcpServers } from '#/session/mcp/ephemeralMcpServers';
 import { ISessionMcpHandle } from '#/session/mcp/sessionMcpHandle';
 import { ITelemetryService } from '#/app/telemetry/telemetry';
 import { Error2, ErrorCodes } from '#/errors';
@@ -284,6 +287,16 @@ function persistentWorkspaceStub(): IWorkspaceService {
   };
 }
 
+function sessionIndexMirrorStub(): ISessionIndexMirror {
+  return {
+    _serviceBrand: undefined,
+    record: () => {},
+    pending: () => [],
+    evict: () => Promise.resolve(),
+    drain: () => Promise.resolve(),
+  };
+}
+
 function sessionIndexStub(): ISessionIndex {
   return {
     _serviceBrand: undefined,
@@ -381,6 +394,7 @@ function workspaceMcpServiceStub(ready: Promise<void> = Promise.resolve()): IWor
       get connectionManager(): McpConnectionManager {
         throw new Error('not implemented');
       },
+      isBaselineServer: () => true,
     }),
     sessionOverlay: () => {
       throw new Error('not implemented');
@@ -561,11 +575,6 @@ describe('SessionLifecycleService', () => {
     await Promise.all(tmpRoots.map((root) => rm(root, { recursive: true, force: true })));
   });
 
-  /**
-   * Build the App host and materialize the default handler (`/tmp/proj`,
-   * `wd_stub` with the default workspace stub), returning its session
-   * lifecycle service.
-   */
   async function build(
     extra: ReturnType<typeof stubPair>[] = [],
   ): Promise<ISessionLifecycleService> {
@@ -583,6 +592,7 @@ describe('SessionLifecycleService', () => {
       stubPair(IWorkspaceInstructionsService, workspaceInstructionsStub()),
       stubPair(IWorkspaceService, workspaceStub()),
       stubPair(ISessionIndex, sessionIndexStub()),
+      stubPair(ISessionIndexMirror, sessionIndexMirrorStub()),
       stubPair(IAppendLogStore, appendLogStoreStub()),
       stubPair(IAtomicDocumentStore, atomicDocumentStoreStub()),
       stubPair(IEventService, eventStub()),
@@ -670,10 +680,6 @@ describe('SessionLifecycleService', () => {
 
     const handle = await svc.create({ sessionId: 's1', workDir: '/tmp/proj' });
 
-    // The index entry addresses the session under the handler's workspace id
-    // — the same id seeding the session's storage scope — not a recomputed
-    // encodeWorkDirKey, so the v1 reader finds it in the bucket it was
-    // materialized into.
     const workspaceId = handle.accessor.get(ISessionContext).workspaceId;
     expect(appended).toEqual([
       {
@@ -728,8 +734,6 @@ describe('SessionLifecycleService', () => {
       }),
       stubPair(IWorkspaceService, {
         ...workspaceStub(),
-        // As the real registry does after folding: the id minted for the
-        // first-seen spelling is reused for the alias.
         createOrTouch: (root: string, name?: string) =>
           Promise.resolve({
             id: 'wd_first_spelling',
@@ -1041,8 +1045,6 @@ describe('SessionLifecycleService', () => {
 
     await svc.create({ sessionId: 'src', workDir: '/tmp/proj' });
 
-    // Fork never gates on activity: a mid-work copy is crash-equivalent, and
-    // replay already normalizes that on restore.
     const target = await svc.fork({ sourceSessionId: 'src', newSessionId: 'dst' });
     expect(target.id).toBe('dst');
   });
@@ -1172,147 +1174,147 @@ describe('SessionLifecycleService', () => {
     resolveMcpReady?.();
   });
 
-  function overlayStub(ready: Promise<void> = Promise.resolve()) {
-    const handle: ISessionMcpHandle = {
-      _serviceBrand: undefined,
-      ready,
-      connectionManager: {} as unknown as McpConnectionManager,
-    };
-    const shutdown = vi.fn(() => Promise.resolve());
-    const sessionOverlay = vi.fn(
-      (..._args: Parameters<IWorkspaceMcpService['sessionOverlay']>): ISessionMcpOverlay => ({
-        handle,
-        shutdown,
-      }),
-    );
-    return { sessionOverlay, handle, shutdown };
-  }
-
-  it('create with mcpServers seeds the session overlay handle and shuts the overlay down on close', async () => {
-    const { sessionOverlay, handle: overlayHandle, shutdown } = overlayStub();
-    const svc = await build([
-      stubPair(IWorkspaceMcpService, { ...workspaceMcpServiceStub(), sessionOverlay }),
-    ]);
+  it('create with mcpServers fires the will-create event with the ephemeral servers seed and applies participant contributions', async () => {
     const mcpServers = { eph: { transport: 'stdio' as const, command: 'node' } };
+    const contributed: ISessionMcpHandle = {
+      _serviceBrand: undefined,
+      ready: Promise.resolve(),
+      connectionManager: {} as unknown as McpConnectionManager,
+      isBaselineServer: () => true,
+    };
+    const seen: Array<{
+      sessionId: string;
+      servers: Readonly<Record<string, McpServerConfig>>;
+      cwd: string;
+    }> = [];
+    const svc = await build();
+    svc.onWillCreateSession((event) => {
+      const servers = event.readSeed(ISessionEphemeralMcpServers);
+      const cwd = event.readSeed(ISessionContext).cwd;
+      seen.push({ sessionId: event.sessionId, servers, cwd });
+      if (Object.keys(servers).length > 0) {
+        event.contributeSeed(ISessionMcpHandle, contributed);
+      }
+    });
 
     const handle = await svc.create({ sessionId: 's1', workDir: '/tmp/proj', mcpServers });
 
-    expect(sessionOverlay).toHaveBeenCalledWith(mcpServers, { stdioCwd: '/tmp/proj' });
-    expect(handle.accessor.get(ISessionMcpHandle)).toBe(overlayHandle);
-
-    await svc.close('s1');
-    expect(shutdown).toHaveBeenCalledTimes(1);
+    expect(seen).toEqual([{ sessionId: 's1', servers: mcpServers, cwd: '/tmp/proj' }]);
+    expect(handle.accessor.get(ISessionMcpHandle)).toBe(contributed);
   });
 
-  it('resume with mcpServers seeds the session overlay handle on the re-materialized session', async () => {
-    const { sessionOverlay, handle: overlayHandle } = overlayStub();
+  it('resume with mcpServers fires the will-create event for the re-materialized session', async () => {
+    const mcpServers = { eph: { transport: 'stdio' as const, command: 'node' } };
+    const seen: Array<Readonly<Record<string, McpServerConfig>>> = [];
     const svc = await build([
       stubPair(ISessionIndex, sessionIndexWithSummary('s1', '/tmp/proj', 'wd_stub')),
       stubPair(IAgentLifecycleService, agentLifecycleWithMainStub()),
-      stubPair(IWorkspaceMcpService, { ...workspaceMcpServiceStub(), sessionOverlay }),
     ]);
-    const mcpServers = { eph: { transport: 'stdio' as const, command: 'node' } };
+    svc.onWillCreateSession((event) => {
+      seen.push(event.readSeed(ISessionEphemeralMcpServers));
+    });
 
     const handle = await svc.resume('s1', { mcpServers });
 
-    expect(sessionOverlay).toHaveBeenCalledWith(mcpServers, { stdioCwd: '/tmp/proj' });
-    expect(handle?.accessor.get(ISessionMcpHandle)).toBe(overlayHandle);
+    expect(handle).toBeDefined();
+    expect(seen).toEqual([mcpServers]);
   });
 
-  it('returns from create without waiting for the session MCP overlay readiness', async () => {
-    let resolveOverlayReady: (() => void) | undefined;
-    const overlayReady = new Promise<void>((resolve) => {
-      resolveOverlayReady = resolve;
+  it('returns from create without waiting on a participant-provided session MCP handle', async () => {
+    let resolveReady: (() => void) | undefined;
+    const ready = new Promise<void>((resolve) => {
+      resolveReady = resolve;
     });
-    const { sessionOverlay } = overlayStub(overlayReady);
-    const svc = await build([
-      stubPair(IWorkspaceMcpService, { ...workspaceMcpServiceStub(), sessionOverlay }),
-    ]);
-
-    // Create resolves while the overlay's initial connect is still pending;
-    // the seeded handle carries the readiness promise so the agent's LLM
-    // steps can wait on it instead.
-    const handle = await svc.create({
-      sessionId: 's1',
-      workDir: '/tmp/proj',
-      mcpServers: { eph: { transport: 'stdio', command: 'node' } },
+    const contributed: ISessionMcpHandle = {
+      _serviceBrand: undefined,
+      ready,
+      connectionManager: {} as unknown as McpConnectionManager,
+      isBaselineServer: () => true,
+    };
+    const svc = await build();
+    svc.onWillCreateSession((event) => {
+      event.contributeSeed(ISessionMcpHandle, contributed);
     });
-    expect(handle.accessor.get(ISessionMcpHandle).ready).toBe(overlayReady);
 
-    resolveOverlayReady?.();
+    // Create resolves while the contributed handle's readiness is still
+    // pending; the seeded handle carries the readiness promise so the agent's
+    // LLM steps can wait on it instead.
+    const handle = await svc.create({ sessionId: 's1', workDir: '/tmp/proj' });
+    expect(handle.accessor.get(ISessionMcpHandle).ready).toBe(ready);
+
+    resolveReady?.();
   });
 
-  it('shuts the session MCP overlay down when create fails after materialization', async () => {
-    const { sessionOverlay, shutdown } = overlayStub();
+  it('runs participant-attached teardown when create fails after materialization', async () => {
+    const onTeardown = vi.fn();
     const svc = await build([
-      stubPair(IWorkspaceMcpService, { ...workspaceMcpServiceStub(), sessionOverlay }),
       stubPair(IAgentLifecycleService, {
         ...agentLifecycleStub(),
         create: () => Promise.reject(new Error('Unknown agent profile')),
       }),
     ]);
+    svc.onWillCreateSession((event) => {
+      event.onSessionDispose(onTeardown);
+    });
 
     await expect(
       svc.create({
         sessionId: 's1',
         workDir: '/tmp/proj',
         mainAgentBinding: { profile: 'missing', model: 'mock' },
-        mcpServers: { eph: { transport: 'stdio', command: 'node' } },
       }),
     ).rejects.toThrow('Unknown agent profile');
 
-    expect(shutdown).toHaveBeenCalledTimes(1);
+    expect(onTeardown).toHaveBeenCalledTimes(1);
     expect(svc.get('s1')).toBeUndefined();
   });
 
-  it('shuts the session MCP overlay down when the service is disposed with the session still live', async () => {
-    const { sessionOverlay, shutdown } = overlayStub();
-    const svc = await build([
-      stubPair(IWorkspaceMcpService, { ...workspaceMcpServiceStub(), sessionOverlay }),
-    ]);
-    await svc.create({
-      sessionId: 's1',
-      workDir: '/tmp/proj',
-      mcpServers: { eph: { transport: 'stdio' as const, command: 'node' } },
+  it('runs participant-attached teardown on close, exactly once across close and host disposal', async () => {
+    const onTeardown = vi.fn();
+    const svc = await build();
+    svc.onWillCreateSession((event) => {
+      event.onSessionDispose(onTeardown);
     });
-
-    // No close: app/workspace teardown disposes the service directly, and the
-    // DI container disposes session scopes without going through the
-    // overlay-aware handle wrapper.
-    (svc as unknown as { dispose(): void }).dispose();
-    expect(shutdown).toHaveBeenCalledTimes(1);
-  });
-
-  it('does not double-shutdown the overlay when close and service disposal both run', async () => {
-    const { sessionOverlay, shutdown } = overlayStub();
-    const svc = await build([
-      stubPair(IWorkspaceMcpService, { ...workspaceMcpServiceStub(), sessionOverlay }),
-    ]);
-    await svc.create({
-      sessionId: 's1',
-      workDir: '/tmp/proj',
-      mcpServers: { eph: { transport: 'stdio' as const, command: 'node' } },
-    });
+    await svc.create({ sessionId: 's1', workDir: '/tmp/proj' });
 
     await svc.close('s1');
-    (svc as unknown as { dispose(): void }).dispose();
-    expect(shutdown).toHaveBeenCalledTimes(1);
+    expect(onTeardown).toHaveBeenCalledTimes(1);
+
+    // Host teardown disposes the workspace (and therefore session) container
+    // directly; the attached teardown has already run and must not run again.
+    host?.dispose();
+    await Promise.resolve();
+    expect(onTeardown).toHaveBeenCalledTimes(1);
   });
 
-  it('create without mcpServers keeps the shared workspace handle and builds no overlay', async () => {
-    const sessionOverlay = vi.fn(
-      (..._args: Parameters<IWorkspaceMcpService['sessionOverlay']>): ISessionMcpOverlay => {
-        throw new Error('unexpected overlay');
-      },
-    );
-    const svc = await build([
-      stubPair(IWorkspaceMcpService, { ...workspaceMcpServiceStub(), sessionOverlay }),
-    ]);
+  it('runs participant-attached teardown when the host is disposed with the session still live', async () => {
+    const onTeardown = vi.fn();
+    const svc = await build();
+    svc.onWillCreateSession((event) => {
+      event.onSessionDispose(onTeardown);
+    });
+    await svc.create({ sessionId: 's1', workDir: '/tmp/proj' });
+
+    // No close: app/workspace teardown disposes the session scope directly,
+    // and the attached teardown runs with it.
+    host?.dispose();
+    await Promise.resolve();
+    expect(onTeardown).toHaveBeenCalledTimes(1);
+  });
+
+  it('create without mcpServers fires the will-create event with an empty ephemeral seed and keeps the workspace handle', async () => {
+    const svc = await build();
+    const seen: Array<Readonly<Record<string, McpServerConfig>>> = [];
+    svc.onWillCreateSession((event) => {
+      seen.push(event.readSeed(ISessionEphemeralMcpServers));
+    });
 
     const handle = await svc.create({ sessionId: 's1', workDir: '/tmp/proj' });
 
-    expect(sessionOverlay).not.toHaveBeenCalled();
-    expect(handle.id).toBe('s1');
+    expect(seen).toEqual([{}]);
+    // No participant contributed a handle: the session reads the workspace
+    // projection provided by the seed adapter.
+    expect(handle.accessor.get(ISessionMcpHandle).isBaselineServer('any')).toBe(true);
     await svc.close('s1');
   });
 
@@ -1502,6 +1504,26 @@ describe('SessionLifecycleService', () => {
   });
 
   describe('fork session state', () => {
+    it('fork inherits the source session\'s last turn outcome', async () => {
+      const updates: { readonly lastTurnReason?: unknown }[] = [];
+      const metaStub: ISessionMetadata = {
+        ...metadataStub(),
+        read: () =>
+          Promise.resolve({ lastTurnReason: 'failed', agents: {} } as never),
+        update: (patch) => {
+          updates.push(patch);
+          return Promise.resolve();
+        },
+      };
+      const svc = await build([stubPair(ISessionMetadata, metaStub)]);
+
+      await svc.create({ sessionId: 'src', workDir: '/tmp/proj' });
+      await svc.fork({ sourceSessionId: 'src', newSessionId: 'dst' });
+
+      const forkUpdate = updates.find((u) => 'forkedFrom' in u);
+      expect(forkUpdate?.lastTurnReason).toBe('failed');
+    });
+
     it('copies blobs, plans, background tasks, and media originals into the fork', async () => {
       const root = await makeTmpRoot();
       const svc = await build([
