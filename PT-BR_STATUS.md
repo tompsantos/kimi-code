@@ -1,25 +1,25 @@
 # Status da localização pt-BR
 
-Última atualização: 2026-08-07
+Última atualização: 2026-08-11
 
 ## Visão geral
 
 | Indicador | Estado |
 | --- | --- |
 | Páginas físicas por locale | 26 |
-| Páginas traduzidas | 7 |
+| Páginas traduzidas | 8 |
 | Em revisão | 0 |
-| Pendentes | 19 |
+| Pendentes | 18 |
 | Divergências críticas conhecidas | 0 |
 | Divergências editoriais rastreadas | 1 |
 | Glossário inicial | pronto |
 | Plano de manutenção | pronto |
 | Proposta upstream | aberta |
 
-Progresso de tradução: **7 / 26 páginas**
+Progresso de tradução: **8 / 26 páginas**
 
 ```text
-[███████░░░░░░░░░░░░░░░░░░░] 27%
+[████████░░░░░░░░░░░░░░░░░░] 31%
 ```
 
 ## Estados
@@ -65,7 +65,7 @@ Progresso de tradução: **7 / 26 páginas**
 | `configuration/config-files.md` | ✅ |
 | `configuration/data-locations.md` | ⚪ |
 | `configuration/env-vars.md` | ✅ |
-| `configuration/overrides.md` | ⚪ |
+| `configuration/overrides.md` | ✅ |
 | `configuration/providers.md` | ✅ |
 
 ## Referência
@@ -105,7 +105,7 @@ A versão pt-BR usa a formulação tecnicamente coerente “binário independent
 7. ✅ traduzir `configuration/config-files.md`
 8. ✅ traduzir `configuration/providers.md`
 9. ✅ traduzir `configuration/env-vars.md`
-10. ⚪ traduzir `configuration/overrides.md`
+10. ✅ traduzir `configuration/overrides.md`
 11. ⚪ traduzir `configuration/data-locations.md`
 12. ⚪ convidar revisores brasileiros
 13. ⚪ consolidar um primeiro lote para nova apresentação ao upstream
