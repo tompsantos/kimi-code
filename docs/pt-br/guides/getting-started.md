@@ -108,7 +108,7 @@ Na primeira execução, você precisa configurar como o Kimi Code CLI acessará 
 Para sair da conta, digite `/logout`, que limpa as credenciais atuais.
 
 ::: tip Outros provedores de IA
-Para conectar Anthropic, OpenAI, Google ou outros provedores, edite diretamente `~/.kimi-code/config.toml` e configure a chave de API. Consulte [Provedores e modelos](../configuration/providers.md) para mais detalhes. Para a referência completa das opções de configuração, consulte [Arquivos de configuração](../configuration/config-files.md), [Variáveis de ambiente](../configuration/env-vars.md) e [Sobrescritas de configuração](../../en/configuration/overrides.md).
+Para conectar Anthropic, OpenAI, Google ou outros provedores, edite diretamente `~/.kimi-code/config.toml` e configure a chave de API. Consulte [Provedores e modelos](../configuration/providers.md) para mais detalhes. Para a referência completa das opções de configuração, consulte [Arquivos de configuração](../configuration/config-files.md), [Variáveis de ambiente](../configuration/env-vars.md) e [Sobrescritas de configuração](../configuration/overrides.md).
 :::
 
 ## Sua primeira conversa
